@@ -4,7 +4,7 @@ pipeline{
 	stages{
 		stage('PACKAGE'){
 			steps{
-				sh 'mvn -B -f backedn/tomcat/config/pom.xml clean package'
+				sh 'mvn -B -f backend/tomcat/config/pom.xml clean package'
 				sh 'cd frontend && docker compose build'
 				sh 'cd backend && docker compose build'
 			}		
