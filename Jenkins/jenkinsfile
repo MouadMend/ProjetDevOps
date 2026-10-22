@@ -7,7 +7,35 @@ pipeline{
 				sh 'mvn -B -f backend/tomcat/config/pom.xml clean package'
 				sh 'cd frontend && docker compose build'
 				sh 'cd backend && docker compose build'
-			}		
+			}
+		stage('Docker Tag') {
+            steps {
+                sh 'docker tag apache:latest mouadmend/projetdevops:apache'
+				sh 'docker tag tomcat:latest mouadmend/projetdevops:tomcat'
+            }
+        }
+        stage('Docker Login & Push') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'Dockerhub',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_TOKEN'
+                    )
+                ]) {
+                    sh '''
+                        set +x
+                        echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USER" --password-stdin
+                        docker push "$IMAGE_NAME:$BUILD_NUMBER"
+                    '''
+                }
+            }
+            post {
+                always {
+                    sh 'docker logout || true'
+                }
+            }
+        }
 
 
 		}
