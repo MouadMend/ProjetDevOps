@@ -8,6 +8,7 @@ pipeline{
 				sh 'cd frontend && docker compose build'
 				sh 'cd backend && docker compose build'
 			}
+		}
 		stage('Docker Tag') {
             steps {
                 sh 'docker tag apache:latest mouadmend/projetdevops:apache'
@@ -38,15 +39,10 @@ pipeline{
         }
 
 
-		}
-
-
-
-
 	}
 
 
 
 
-
 }
+
