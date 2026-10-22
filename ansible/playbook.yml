@@ -1,7 +1,7 @@
 ---
 - name: Déployer apache sur le frontend
   hosts: app
-  become: true
+  #become: true
 
   tasks:
     - name: Se connecter au registry pour l'image privée
