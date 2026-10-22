@@ -46,15 +46,7 @@ pipeline{
                 	usernameVariable: 'DOCKERHUB_USER',
                 	passwordVariable: 'DOCKERHUB_TOKEN'
             		)
-        		]) {
-
-
-sh '''
-    whoami
-    ansible --version
-    ansible-galaxy collection list community.docker
-'''
-					
+        		]) {			
 					sh '''
                 	set +x
                 	cd ansible
