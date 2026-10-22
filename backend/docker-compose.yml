@@ -1,7 +1,5 @@
 version: '3'
 services:
   tomcat:
-    build: 
-      context: .
-      dockerfile: tomcat/Dockerfile
+    build: tomcat/ 
     image: tomcat:latest
