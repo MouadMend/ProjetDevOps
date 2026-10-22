@@ -27,7 +27,8 @@ pipeline{
                     sh '''
                         set +x
                         echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USER" --password-stdin
-                        docker push "$IMAGE_NAME:$BUILD_NUMBER"
+                        docker push mouadmend/projetdevops:apache
+						docker push mouadmend/projetdevops:tomcat
                     '''
                 }
             }
