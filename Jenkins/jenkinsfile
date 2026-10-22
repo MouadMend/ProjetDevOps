@@ -1,11 +1,13 @@
 pipeline{
+	agent any
+
 	stages{
 		stage('PACKAGE'){
-		steps{
-			sh 'mvn -B -f backedn/tomcat/config/pom.xml clean package'
-			sh 'cd frontend && docker compose build'
-			sh 'cd backend && docker compose build'
-		}		
+			steps{
+				sh 'mvn -B -f backedn/tomcat/config/pom.xml clean package'
+				sh 'cd frontend && docker compose build'
+				sh 'cd backend && docker compose build'
+			}		
 
 
 		}
