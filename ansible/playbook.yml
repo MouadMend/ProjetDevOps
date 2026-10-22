@@ -1,0 +1,20 @@
+---
+- name: Déployer apache sur le frontend
+  hosts: app
+  become: true
+
+  tasks:
+    - name: Se connecter au registry pour l'image privée
+      community.docker.docker_login:
+        username: "{{ lookup('ansible.builtin.env', 'DOCKERHUB_USER') }}"
+        password: "{{ lookup('ansible.builtin.env', 'DOCKERHUB_TOKEN') }}"
+      no_log: true
+
+    - name: Démarrer le conteneur avec l'image voulue
+      community.docker.docker_container:
+        name: apache
+        image: mouadmend/projetdevops:apache
+        state: started
+        published_ports:
+          - "80:8080"
+        restart_policy: unless-stopped
